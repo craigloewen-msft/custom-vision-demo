@@ -159,6 +159,12 @@ export default {
         process.env.VUE_APP_CUSTOMVISIONPREDICTENDPOINT ||
         "<customVisionPredictionEndPoint>";
 
+      console.log("Key");
+      console.log(customVisionPredictionKey);
+
+      console.log("Endpoint");
+      console.log(customVisionPredictionEndPoint);
+
       console.log("Changing to binary");
       let webcamCapture = this.$refs.webcam.capture();
       let dataBinary = this.dataURItoBlob(webcamCapture);

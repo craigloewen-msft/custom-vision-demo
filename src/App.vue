@@ -164,12 +164,6 @@ export default {
       let dataBinary = this.dataURItoBlob(webcamCapture);
       console.log(dataBinary);
 
-      console.log("Key");
-      console.log(customVisionPredictionKey);
-
-      console.log("Endpoint");
-      console.log(customVisionPredictionEndPoint);
-
       this.axios
         .post(customVisionPredictionEndPoint, dataBinary, {
           headers: {

@@ -45,19 +45,35 @@
       </div>
       <div class="col-md-6">
         <h2>Captured Image</h2>
-        <figure class="figure">
-          <img :src="img" class="img-responsive" />
-        </figure>
-        <div v-if="predictionList.length > 0">
-          <h3>Predictions</h3>
-          <ul>
-            <li
+        <div class="imageBox">
+          <figure class="figure">
+            <img :src="img" class="img-responsive" />
+          </figure>
+          <div class="overlayBox">
+            <div
               v-for="(predictionItem, predictionIndex) in predictionList"
               :key="predictionIndex"
+              class="identifiedBox"
+              :style="{
+                width: predictionItem.boundingBox.width * 100 + '%',
+                height: predictionItem.boundingBox.height * 100 + '%',
+                top: predictionItem.boundingBox.top * 100 + '%',
+                left: predictionItem.boundingBox.left * 100 + '%',
+              }"
             >
-              {{ predictionItem.name }}, {{ predictionItem.probability }}%
-            </li>
-          </ul>
+              <div class="identifiedBoxTag">
+                {{ predictionItem.name }}, {{ predictionItem.probability }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-if="predictionList.length > 0">
+          <div
+            v-for="(predictionItem, predictionIndex) in predictionList"
+            :key="predictionIndex"
+          >
+            {{ predictionItem.name }}, {{ predictionItem.probability }}%
+          </div>
         </div>
       </div>
     </div>
@@ -187,6 +203,8 @@ export default {
             predictionRenderObject.probability = (
               visitor.probability * 100.0
             ).toFixed(2);
+            predictionRenderObject.boundingBox = visitor.boundingBox; // height, left, top, width
+
             predictionRenderList.push(predictionRenderObject);
           }
 
@@ -196,3 +214,40 @@ export default {
   },
 };
 </script>
+
+<style>
+.identifiedBox {
+  height: 100px;
+  border: 1px solid red;
+  position: absolute;
+  top: 10%;
+  color: red;
+}
+
+.identifiedBoxTag {
+  background: black;
+  display: inline;
+}
+
+.overlayBox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.imageBox {
+  position: relative;
+}
+
+.imageBox figure {
+  margin: 0 0;
+}
+
+.imageBox figure img {
+  max-width: 100%;
+}
+</style>

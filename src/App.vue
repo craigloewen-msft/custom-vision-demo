@@ -150,7 +150,6 @@ export default {
       return new Blob([arr], { type: mimeStr });
     },
     useVisionAPI: async function () {
-
       this.predictionList = [];
 
       const customVisionPredictionKey =
@@ -166,16 +165,12 @@ export default {
       console.log(dataBinary);
 
       this.axios
-        .post(
-          customVisionPredictionEndPoint,
-          dataBinary,
-          {
-            headers: {
-              "Prediction-Key": customVisionPredictionKey,
-              "Content-Type": "application/octet-stream",
-            },
-          }
-        )
+        .post(customVisionPredictionEndPoint, dataBinary, {
+          headers: {
+            "Prediction-Key": customVisionPredictionKey,
+            "Content-Type": "application/octet-stream",
+          },
+        })
         .then((response) => {
           console.log(response.data);
           const predictions = response.data.predictions;
@@ -189,12 +184,13 @@ export default {
             let predictionRenderObject = {};
             let visitor = predictions[i];
             predictionRenderObject.name = visitor.tagName;
-            predictionRenderObject.probability = (visitor.probability * 100.0).toFixed(2);
+            predictionRenderObject.probability = (
+              visitor.probability * 100.0
+            ).toFixed(2);
             predictionRenderList.push(predictionRenderObject);
           }
 
           this.predictionList = predictionRenderList;
-
         });
     },
   },

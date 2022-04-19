@@ -21,4 +21,8 @@ jobs:
     - run: npm install
     - run: git config --global user.name 'Craig Loewen'
     - run: git config --global user.email 'crloewen@microsoft.com'
-    - run: ./deploy.sh
+    - name: Build and deploy
+      run: ./deploy.sh
+      env:
+        VUE_APP_CUSTOMVISIONPREDICTKEY: ${{ secrets.VUE_APP_CUSTOMVISIONPREDICTKEY }}
+        VUE_APP_CUSTOMVISIONPREDICTENDPOINT: ${{ secrets.VUE_APP_CUSTOMVISIONPREDICTENDPOINT }}

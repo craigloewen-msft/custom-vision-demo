@@ -1,5 +1,5 @@
 # custom-vision-demo
-A demo page for using the custom vision Azure API with Vue
+A demo page for using the custom vision Azure API with Vue.
 
 ## Project setup
 ```

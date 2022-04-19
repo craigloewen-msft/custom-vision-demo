@@ -55,7 +55,7 @@
               v-for="(predictionItem, predictionIndex) in predictionList"
               :key="predictionIndex"
             >
-              {{ predictionItem.name }}, {{ predictionItem.probability }}
+              {{ predictionItem.name }}, {{ predictionItem.probability }}%
             </li>
           </ul>
         </div>
@@ -189,7 +189,7 @@ export default {
             let predictionRenderObject = {};
             let visitor = predictions[i];
             predictionRenderObject.name = visitor.tagName;
-            predictionRenderObject.probability = visitor.probability;
+            predictionRenderObject.probability = (visitor.probability * 100.0).toFixed(2);
             predictionRenderList.push(predictionRenderObject);
           }
 
